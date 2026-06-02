@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}AutoRia{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+    <header class="header">
+        <div class="container header__inner">
+
+            <a href="{% url 'index' %}" class="logo">
+                <img src="{% static 'images/base/logo.svg' %}" alt="AutoRia" class="logo__img">
+            </a>
+
+            <nav class="nav">
+                <a href="#">Вживані авто</a>
+                <a href="#">Нові авто</a>
+                <a href="#" class="nav__dropdown">Все для авто
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                </a>
+                <a href="#">GARAGE AUTO.RIA</a>
+                <a href="#">Підтримка 24/7</a>
+            </nav>
+
+            <div class="header__actions">
+                <button class="icon-btn" aria-label="Пошук">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"/>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                    </svg>
+                </button>
+                <button class="icon-btn" aria-label="Обране">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                </button>
+                <a href="{% url 'login' %}" class="icon-btn" aria-label="Кабінет">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                </a>
+                <a href="#" class="btn-sell">+ Продати авто</a>
+            </div>
+
+        </div>
+    </header>
+
+    <div class="banner">
+        <div class="container banner__inner">
+            <span class="banner__flag"></span>
+            <span class="banner__text">Донат до донату – автівка на фронт! Подвоїмо кожну гривню!</span>
+        </div>
+    </div>
+
+    <main class="main">
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 AutoRia Clone</p>
+        </div>
+    </footer>
+
+</body>
+</html>

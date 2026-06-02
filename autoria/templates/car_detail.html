@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Деталі автомобіля{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/car_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+    <h1>Деталі автомобіля #{{ car_id }}</h1>
+    <p>Тут буде повна інформація про машину</p>
+{% endblock %}
