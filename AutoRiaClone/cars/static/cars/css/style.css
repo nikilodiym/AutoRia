@@ -1,0 +1,640 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#ffffff;
+}
+
+.header{
+    height:90px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 120px;
+    border-bottom:1px solid #e5e5e5;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+}
+
+.auto{
+    background:#f15a24;
+    color:white;
+    padding:8px 14px;
+    font-size:28px;
+    font-weight:bold;
+}
+
+.ria{
+    background:#0d3f66;
+    color:white;
+    padding:8px 14px;
+    font-size:28px;
+    font-weight:bold;
+}
+
+nav{
+    display:flex;
+    gap:30px;
+}
+
+nav a{
+    text-decoration:none;
+    color:#222;
+    font-size:16px;
+}
+
+.sell-btn{
+    width:200px;
+    height:52px;
+    border-radius:40px;
+    border:2px solid black;
+    background:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.hero{
+    background:#e8f2fa;
+    padding:40px 0 60px;
+}
+
+.search-box{
+    width:1120px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:12px;
+}
+
+.search-box h1{
+    font-size:52px;
+    margin-bottom:25px;
+}
+
+.tabs{
+    display:flex;
+    gap:12px;
+    margin-bottom:30px;
+}
+
+.tabs button{
+    width:110px;
+    height:50px;
+    border-radius:30px;
+    border:1px solid #ddd;
+    background:white;
+    cursor:pointer;
+}
+
+.tabs .active{
+    background:black;
+    color:white;
+}
+
+.filters{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+}
+
+.filters select{
+    height:55px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    padding:0 15px;
+    font-size:16px;
+}
+
+.buttons{
+    margin-top:25px;
+    display:flex;
+    gap:20px;
+}
+
+.search-btn{
+    width:280px;
+    height:55px;
+    border:none;
+    border-radius:30px;
+    background:#e53935;
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.advanced-btn{
+    width:280px;
+    height:55px;
+    border:2px solid black;
+    border-radius:30px;
+    background:white;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.continue-search{
+    width:1120px;
+    margin:60px auto;
+}
+
+.continue-search h2{
+    font-size:42px;
+    margin-bottom:30px;
+}
+
+.cards{
+    display:flex;
+    gap:20px;
+}
+
+.card{
+    flex:1;
+    height:100px;
+    border:1px solid #e5e5e5;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    padding-left:25px;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.recommended{
+    width:1120px;
+    margin:80px auto;
+}
+
+.recommended h2{
+    font-size:42px;
+    margin-bottom:30px;
+}
+
+.cars-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+}
+
+.car-card{
+    text-decoration:none;
+    color:black;
+    border:1px solid #ddd;
+    border-radius:12px;
+    overflow:hidden;
+    transition:.3s;
+}
+
+.car-card:hover{
+    transform:translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,.15);
+}
+
+.car-card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.car-info{
+    padding:15px;
+}
+
+.price{
+    color:#0a8f08;
+    font-size:28px;
+    font-weight:bold;
+    margin:10px 0;
+}
+
+.detail-container{
+    width:1200px;
+    margin:50px auto;
+    display:flex;
+    gap:40px;
+}
+
+.detail-container img{
+    width:650px;
+    border-radius:15px;
+}
+
+.detail-info{
+    flex:1;
+}
+
+.detail-info h1{
+    font-size:45px;
+}
+
+.detail-info h2{
+    color:green;
+    margin:20px 0;
+    font-size:40px;
+}
+
+/* ===== SEARCH PANEL UPGRADE ===== */
+
+.search-panel {
+    background: #fff;
+    border-radius: 16px;
+    padding: 25px;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* GRID FILTERS */
+.filters-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-top: 10px;
+}
+
+/* FILTER BLOCK */
+.filter {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.filter label {
+    font-size: 12px;
+    color: #777;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* CUSTOM SELECT */
+.filter select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    height: 50px;
+    padding: 0 14px;
+
+    border-radius: 10px;
+    border: 1px solid #ddd;
+
+    background: linear-gradient(180deg, #fff, #f7f7f7);
+    font-size: 15px;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.filter select:hover {
+    border-color: #e53935;
+}
+
+.filter select:focus {
+    outline: none;
+    border-color: #e53935;
+    box-shadow: 0 0 0 3px rgba(229,57,53,0.1);
+}
+
+/* BUTTONS (UPDATED LOOK) */
+.buttons {
+    margin-top: 25px;
+    display: flex;
+    gap: 15px;
+}
+
+.search-btn {
+    background: linear-gradient(135deg, #e53935, #ff4d4d);
+    border: none;
+    color: white;
+    width: 260px;
+    height: 55px;
+    border-radius: 30px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.search-btn:hover {
+    transform: translateY(-2px);
+}
+
+.advanced-btn {
+    width: 260px;
+    height: 55px;
+    border-radius: 30px;
+    border: 2px solid #111;
+    background: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.advanced-btn:hover {
+    background: #111;
+    color: white;
+}
+
+/* CONTINUE CARDS */
+.card {
+    transition: 0.2s;
+}
+
+.card:hover {
+    border-color: #e53935;
+    transform: translateY(-2px);
+}
+
+.dropdown {
+    position: relative;
+}
+
+#brandSearch {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 5px;
+}
+
+.dropdown-list {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    background: white;
+}
+
+.dropdown-list div {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.dropdown-list div:hover {
+    background: #eee;
+}
+
+.car-skeleton {
+    background: #1e1e1e;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.sk-img {
+    width: 100%;
+    height: 160px;
+    background: #2b2b2b;
+    border-radius: 10px;
+    animation: pulse 1.2s infinite;
+}
+
+.sk-line {
+    height: 12px;
+    background: #2b2b2b;
+    margin-top: 10px;
+    border-radius: 6px;
+    animation: pulse 1.2s infinite;
+}
+
+.sk-line.short {
+    width: 60%;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.4; }
+    100% { opacity: 1; }
+}
+
+
+.car-detail {
+    max-width: 1400px;
+    margin: 40px auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    padding: 0 20px;
+}
+
+.car-gallery img {
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+}
+
+.car-sidebar {
+    background: white;
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    height: fit-content;
+    position: sticky;
+    top: 20px;
+}
+
+.car-sidebar h1 {
+    font-size: 32px;
+    margin-bottom: 15px;
+    color: #222;
+}
+
+.price {
+    font-size: 28px;
+    font-weight: 700;
+    color: #00a046;
+    margin-bottom: 25px;
+}
+
+.specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.spec {
+    background: #f3f5f7;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-weight: 500;
+    color: #444;
+}
+
+.contact-btn {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    background: #00a046;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.contact-btn:hover {
+    background: #00893c;
+}
+
+.description-card {
+    max-width: 1400px;
+    margin: 0 auto 40px;
+    background: white;
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+}
+
+.description-card h2 {
+    margin-bottom: 20px;
+    color: #222;
+}
+
+.description-card p {
+    color: #555;
+    line-height: 1.8;
+    font-size: 17px;
+}
+
+.autorua-footer {
+    background: #1d1f29;
+    color: #fff;
+    margin-top: 80px;
+    padding: 40px 500px;
+}
+
+.autorua-footer a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.autorua-footer__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 35px;
+}
+
+.autorua-footer__support {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.autorua-footer__avatars {
+    display: flex;
+}
+
+.autorua-footer__avatars img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    margin-left: -10px;
+    object-fit: cover;
+}
+
+.autorua-footer__avatars img:first-child {
+    margin-left: 0;
+}
+
+.autorua-footer__support-text h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.autorua-footer__support-text p {
+    color: #d7d7d7;
+}
+
+.autorua-footer__social {
+    display: flex;
+    gap: 16px;
+}
+
+.autorua-footer__social a {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: white;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+}
+
+.autorua-footer__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 50px;
+}
+
+.autorua-footer__chips a {
+    background: white;
+    color: #222;
+    padding: 14px 20px;
+    border-radius: 50px;
+    font-size: 16px;
+}
+
+.autorua-footer__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    margin-bottom: 50px;
+}
+
+.autorua-footer__column {
+    display: flex;
+    flex-direction: column;
+}
+
+.autorua-footer__column h4 {
+    font-size: 20px;
+    margin-bottom: 18px;
+    margin-top: 25px;
+}
+
+.autorua-footer__column h4:first-child {
+    margin-top: 0;
+}
+
+.autorua-footer__column a {
+    margin-bottom: 10px;
+    color: #e1e1e1;
+}
+
+.autorua-footer__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 25px;
+}
+
+.autorua-footer__links,
+.autorua-footer__controls {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.autorua-footer__controls select {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 16px;
+}
+
+.autorua-footer__copyright {
+    margin-top: 35px;
+    color: #d7d7d7;
+}

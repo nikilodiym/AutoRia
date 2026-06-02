@@ -1,0 +1,338 @@
+{% extends 'cars/base.html' %}
+
+{% block content %}
+
+<header class="header">
+    <div class="logo">
+        <span class="auto">auto</span>
+        <span class="ria">RIA</span>
+    </div>
+
+    <nav>
+        <a href="#">Вживані авто</a>
+        <a href="#">Нові авто</a>
+        <a href="#">Все для авто</a>
+        <a href="#">GARAGE AUTO.RIA</a>
+        <a href="#">Підтримка 24/7</a>
+    </nav>
+
+    <button class="sell-btn">Продати авто</button>
+</header>
+
+<section class="hero">
+
+    <div class="search-box">
+
+        <h1>Знаємо, бо перевірили</h1>
+
+        <div class="search-panel">
+
+            <div class="filters-grid">
+
+                <div class="filter">
+                    <label>Марка</label>
+                    <select name="brand" class="filter-select">
+                        <option value="all">Всі марки</option>
+                        <option value="Toyota">Toyota</option>
+                        <option value="BMW">BMW</option>
+                        <option value="Audi">Audi</option>
+                        <option value="Mercedes">Mercedes</option>
+                        <option value="Volkswagen">Volkswagen</option>
+                        <option value="Ford">Ford</option>
+                        <option value="Honda">Honda</option>
+                        <option value="Tesla">Tesla</option>
+                        <option value="Nissan">Nissan</option>
+                        <option value="Hyundai">Hyundai</option>
+                        <option value="Kia">Kia</option>
+                        <option value="Skoda">Skoda</option>
+                        <option value="Mazda">Mazda</option>
+                    </select>
+                </div>
+
+                <div class="filter">
+                    <label>Рік</label>
+                    <select name="year" class="filter-select">
+                        <option value="all">Всі</option>
+                        <option>2026</option>
+                        <option>2025</option>
+                        <option>2024</option>
+                        <option>2023</option>
+                        <option>2022</option>
+                        <option>2021</option>
+                        <option>2020</option>
+                        <option>2019</option>
+                        <option>2018</option>
+                        <option>2017</option>
+                    </select>
+                </div>
+
+                <div class="filter">
+                    <label>Пальне</label>
+                    <select name="fuel" class="filter-select">
+                        <option value="all">Всі</option>
+                        <option>Бензин</option>
+                        <option>Дизель</option>
+                        <option>Електро</option>
+                    </select>
+                </div>
+
+                <div class="filter">
+                    <label>Коробка</label>
+                    <select name="transmission" class="filter-select">
+                        <option value="all">Всі</option>
+                        <option>Автомат</option>
+                    </select>
+                </div>
+
+                <div class="filter">
+                    <label>Макс. ціна</label>
+                    <select name="max_price" class="filter-select">
+                        <option value="all">Без ліміту</option>
+                        <option value="5000">5 000$</option>
+                        <option value="10000">10 000$</option>
+                        <option value="20000">20 000$</option>
+                        <option value="30000">30 000$</option>
+                        <option value="50000">50 000$</option>
+                        <option value="75000">75 000$</option>
+                        <option value="100000">100 000$</option>
+                    </select>
+                </div>
+
+                <div class="filter">
+                    <label>Пробіг</label>
+                    <select name="mileage" class="filter-select">
+                        <option value="all">Будь-який</option>
+                        <option value="50000">до 50 000 км</option>
+                        <option value="100000">до 100 000 км</option>
+                        <option value="150000">до 150 000 км</option>
+                        <option value="200000">до 200 000 км</option>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="recommended">
+
+    <h2>AUTO.RIA рекомендує</h2>
+
+    <div class="cars-grid" id="carsGrid">
+
+        {% for car in cars %}
+        <a href="{% url 'car_detail' car.id %}" class="car-card">
+            <img src="{{ car.image }}">
+
+            <div class="car-info">
+                <h3>{{ car.brand }} {{ car.model }}</h3>
+                <p class="price">${{ car.price }}</p>
+                <p>{{ car.year }}</p>
+                <p>{{ car.mileage }} км</p>
+                <p>{{ car.engine }}</p>
+                <p>{{ car.region }}</p>
+            </div>
+        </a>
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+<div id="skeletonTemplate" style="display:none;">
+    <div class="car-skeleton">
+        <div class="sk-img"></div>
+        <div class="sk-line"></div>
+        <div class="sk-line short"></div>
+        <div class="sk-line"></div>
+    </div>
+</div>
+
+<footer class="autorua-footer">
+
+    <section class="autorua-footer__top">
+
+        <section class="autorua-footer__support">
+
+            <section class="autorua-footer__avatars">
+
+                <img src="https://i.pravatar.cc/80?img=1" alt="">
+                <img src="https://i.pravatar.cc/80?img=3" alt="">
+                <img src="https://i.pravatar.cc/80?img=5" alt="">
+
+            </section>
+
+            <section class="autorua-footer__support-text">
+
+                <h3>Служба турботи про користувачів 24/7</h3>
+                <p>Допомога по сайту</p>
+
+            </section>
+
+        </section>
+
+        <section class="autorua-footer__social">
+
+            <a href="#">🛬</a>
+            <a href="#">💬</a>
+            <a href="#">🏠</a>
+            <a href="#">📞</a>
+
+        </section>
+
+    </section>
+
+    <section class="autorua-footer__chips">
+
+        <a href="#">Відгуки про авто</a>
+        <a href="#">Авто Лідер</a>
+        <a href="#">RIA.com для бізнесу</a>
+        <a href="#">RIA.com Marketplace</a>
+        <a href="#">API для розробників</a>
+        <a href="#">Вікіпедія про AUTO.RIA</a>
+        <a href="#">Безпечні угоди</a>
+        <a href="#">Вакансії AUTO.RIA</a>
+        <a href="#">Партнерська ініціатива - Біле світло</a>
+
+    </section>
+
+    <section class="autorua-footer__grid">
+
+        <section class="autorua-footer__column">
+
+            <h4>Вживані авто</h4>
+
+            <a href="#">Автодилери</a>
+            <a href="#">Авто з Європи</a>
+            <a href="#">Пригнані авто</a>
+            <a href="#">Нерозмитнені авто</a>
+
+            <h4>Нові авто</h4>
+
+            <a href="#">Автосалони</a>
+            <a href="#">Мотосалони</a>
+            <a href="#">Спецтехніка</a>
+            <a href="#">Електромобілі</a>
+            <a href="#">Автоцентр AUTO.RIA</a>
+
+            <h4>Сільгосптехніка</h4>
+
+            <a href="#">Оренда</a>
+            <a href="#">Послуги</a>
+
+        </section>
+
+        <section class="autorua-footer__column">
+
+            <h4>Послуги для авто</h4>
+
+            <a href="#">СТО</a>
+
+            <h4>Новини</h4>
+
+            <a href="#">Тест-драйви</a>
+            <a href="#">Електромобілі</a>
+            <a href="#">Розмитнення</a>
+            <a href="#">Онлайн-журнал</a>
+
+            <h4>Сервіси</h4>
+
+            <a href="#">Калькулятор розмитнення</a>
+            <a href="#">Порівняння авто</a>
+            <a href="#">Ціни на пальне</a>
+            <a href="#">Автотермінал</a>
+
+        </section>
+
+    </section>
+
+    <section class="autorua-footer__bottom">
+
+        <section class="autorua-footer__links">
+
+            <a href="#">Угода про надання послуг</a>
+            <a href="#">Політика Приватності</a>
+            <a href="#">Мапа сайту</a>
+
+        </section>
+
+        <section class="autorua-footer__controls">
+
+            <a href="#">Повернутися до попередньої версії</a>
+
+            <select>
+                <option>Українська</option>
+            </select>
+
+        </section>
+
+    </section>
+
+    <section class="autorua-footer__copyright">
+        © 2014-2026 RIA.com
+    </section>
+
+</footer>
+
+<script>
+const grid = document.getElementById("carsGrid");
+const selects = document.querySelectorAll(".filter-select");
+
+function getFilters() {
+    return {
+        brand: document.querySelector("[name='brand']").value,
+        year: document.querySelector("[name='year']").value,
+        fuel: document.querySelector("[name='fuel']").value,
+        transmission: document.querySelector("[name='transmission']").value,
+        max_price: document.querySelector("[name='max_price']").value,
+        mileage: document.querySelector("[name='mileage']").value,
+    };
+}
+
+function showSkeleton() {
+    let html = "";
+    const template = document.getElementById("skeletonTemplate").innerHTML;
+
+    for (let i = 0; i < 6; i++) {
+        html += template;
+    }
+
+    grid.innerHTML = html;
+}
+
+async function loadCars() {
+    showSkeleton();
+    const params = new URLSearchParams(getFilters());
+    const res = await fetch(`/filter/?${params.toString()}`);
+    const data = await res.json();
+    grid.innerHTML = "";
+    if (data.cars.length === 0) {
+        grid.innerHTML = "<p>Нічого не знайдено</p>";
+        return;
+    }
+    data.cars.forEach(car => {
+        grid.innerHTML += `
+            <a href="/car/${car.id}" class="car-card">
+                <img src="${car.image}">
+                <div class="car-info">
+                    <h3>${car.brand} ${car.model}</h3>
+                    <p class="price">$${car.price}</p>
+                    <p>${car.year}</p>
+                    <p>${car.mileage} км</p>
+                    <p>${car.engine}</p>
+                    <p>${car.region}</p>
+                </div>
+            </a>
+        `;
+    });
+}
+
+selects.forEach(select => {
+    select.addEventListener("change", loadCars);
+});
+</script>
+
+{% endblock %}

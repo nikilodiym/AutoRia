@@ -1,0 +1,78 @@
+{% extends 'cars/base.html' %}
+
+{% block content %}
+
+<header class="header">
+    <div class="logo">
+        <span class="auto">auto</span>
+        <span class="ria">RIA</span>
+    </div>
+
+    <nav>
+        <a href="#">Вживані авто</a>
+        <a href="#">Нові авто</a>
+        <a href="#">Все для авто</a>
+        <a href="#">GARAGE AUTO.RIA</a>
+        <a href="#">Підтримка 24/7</a>
+    </nav>
+
+    <button class="sell-btn">Продати авто</button>
+</header>
+
+<div class="car-detail">
+
+    <div class="car-gallery">
+        <img src="{{ car.image }}" alt="{{ car.brand }} {{ car.model }}">
+    </div>
+
+    <div class="car-sidebar">
+
+        <h1>{{ car.brand }} {{ car.model }}</h1>
+
+        <div class="price">
+            ${{ car.price }}
+        </div>
+
+        <div class="specs">
+
+            <div class="spec">
+                📅 {{ car.year }}
+            </div>
+
+            <div class="spec">
+                🛣️ {{ car.mileage }} км
+            </div>
+
+            <div class="spec">
+                ⚙️ {{ car.transmission }}
+            </div>
+
+            <div class="spec">
+                ⛽ {{ car.engine }}
+            </div>
+
+            <div class="spec">
+                📍 {{ car.region }}
+            </div>
+
+        </div>
+
+        <button class="contact-btn">
+            Зв'язатися з продавцем
+        </button>
+
+    </div>
+
+</div>
+
+<div class="description-card">
+
+    <h2>Опис автомобіля</h2>
+
+    <p>
+        {{ car.description }}
+    </p>
+
+</div>
+
+{% endblock %}
