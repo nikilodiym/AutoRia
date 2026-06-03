@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/index/carousels.css' %}">
     <link rel="stylesheet" href="{% static 'css/index/recommendations.css' %}">
     <link rel="stylesheet" href="{% static 'css/index/transport_types.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index/news.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -15,6 +16,7 @@
     {% include 'index/_carousels.html' %}
     {% include 'index/_recommendations.html' %}
     {% include 'index/_transport_types.html' %}
+    {% include 'index/_news.html' %}
 {% endblock %}
 
 {% block extra_js %}
@@ -22,4 +24,5 @@
     <script src="{% static 'js/index/carousels.js' %}"></script>
     <script src="{% static 'js/index/recommendations.js' %}"></script>
     <script src="{% static 'js/index/transport_types.js' %}"></script>
+    <script src="{% static 'js/index/news.js' %}"></script>
 {% endblock %}
