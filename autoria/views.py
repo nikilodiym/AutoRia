@@ -45,12 +45,11 @@ CARS = [
 ]
 
 def index(request):
-    return render(request, 'index.html', {'cars': CARS})
+    return render(request, 'index/index.html', {'cars': CARS})
 
 def car_detail(request, car_id):
     car = next((c for c in CARS if c['id'] == car_id), None)
-    return render(request, 'car_detail.html', {'car': car})
-
+    return render(request, 'car_detail/car_detail.html', {'car': car})
 
 def login(request):
-    return render(request, 'login.html')
+    return render(request, 'login/login.html')
