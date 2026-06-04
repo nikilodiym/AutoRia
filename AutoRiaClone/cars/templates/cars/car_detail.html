@@ -21,8 +21,8 @@
 
 <div class="car-detail">
 
-    <div class="car-gallery">
-        <img src="{{ car.image }}" alt="{{ car.brand }} {{ car.model }}">
+     <div class="car-gallery">
+        <img src="{% if car.image %}{{ car.image.url }}{% else %}/static/cars/img/placeholder.png{% endif %}" alt="{{ car.brand }} {{ car.model }}">
     </div>
 
     <div class="car-sidebar">
@@ -70,7 +70,10 @@
     <h2>Опис автомобіля</h2>
 
     <p>
-        {{ car.description }}
+        Автомобіль марки {{ car.brand }} моделі {{ car.model }} {{ car.year }} року випуску.
+        Пробіг: {{ car.mileage }} км.
+        Паливо: {{ car.fuel }}. Коробка передач: {{ car.transmission }}.
+        Розташування: {{ car.region }}.
     </p>
 
 </div>

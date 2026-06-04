@@ -12,7 +12,7 @@ cars = [
         "transmission": "Автомат",
         "fuel": "Бензин",
         "region": "Київ",
-        "image": "https://images.unsplash.com/photo-1729966085578-c7b281cf11da?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "image": "https://zijtttiunopqxzerspls.supabase.co/storage/v1/object/public/car-image/bmw.avif",
         "description": "Офіційний BMW M5 Competition у максимальній комплектації. Автомобіль повністю обслужений, без технічних зауважень. Повний M-пакет, проекція на лобове скло, камери 360°, адаптивна підвіска, вентиляція та підігрів сидінь. Готовий до будь-яких перевірок на СТО"
     },
     {
@@ -26,7 +26,7 @@ cars = [
         "transmission": "Автомат",
         "fuel": "Бензин",
         "region": "Львів",
-        "image": "https://images.unsplash.com/photo-1616422285623-13ff0162193c?q=80&w=862&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "image": "https://zijtttiunopqxzerspls.supabase.co/storage/v1/object/public/car-image/audi.avif",
         "description": "Audi RS6 Avant з оригінальним підтвердженим пробігом. Потужний 4.0 TFSI, повний привід Quattro та спортивний вихлоп. Автомобіль у відмінному стані, без ДТП. Преміальна аудіосистема, панорама та максимальна комплектація."
     },
     {
@@ -40,7 +40,7 @@ cars = [
         "transmission": "Автомат",
         "fuel": "Бензин",
         "region": "Одеса",
-        "image": "https://images.unsplash.com/photo-1612945789141-802278191556?q=80&w=928&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "image": "https://zijtttiunopqxzerspls.supabase.co/storage/v1/object/public/car-image/mers.avif",
         "description": "Mercedes-Benz E63 AMG у стані нового автомобіля. Регулярне обслуговування виключно на офіційному сервісі. AMG Performance пакет, панорамний дах, сидіння з пам'яттю та преміальна акустика Burmester."
     },
 
@@ -55,7 +55,7 @@ cars = [
         "transmission": "Автомат",
         "fuel": "Бензин",
         "region": "Харків",
-        "image": "https://images.unsplash.com/photo-1624578571415-09e9b1991929?q=80&w=780&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "image": "https://zijtttiunopqxzerspls.supabase.co/storage/v1/object/public/car-image/camri.avif",
         "description": "Надійний та комфортний седан для щоденного використання. Один власник в Україні, чесний пробіг. Автоматична коробка передач, двозонний клімат-контроль, камера заднього виду та безключовий доступ."
     },
     {
@@ -69,7 +69,7 @@ cars = [
         "transmission": "Автомат",
         "fuel": "Дизель",
         "region": "Київ",
-        "image": "https://images.unsplash.com/photo-1655286167308-55817227e6c8?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "image": "https://zijtttiunopqxzerspls.supabase.co/storage/v1/object/public/car-image/fol.avif",
         "description": "Volkswagen Touareg з потужним дизельним двигуном та повним приводом. Автомобіль повністю обслужений і не потребує вкладень. Шкіряний салон, пневмопідвіска, навігація та підігрів усіх сидінь. Відмінний варіант для далеких подорожей."
     },
     {
@@ -83,7 +83,7 @@ cars = [
         "transmission": "Автомат",
         "fuel": "Електро",
         "region": "Львів",
-        "image": "https://images.unsplash.com/photo-1617788138017-80ad40651399",
+        "image": "https://zijtttiunopqxzerspls.supabase.co/storage/v1/object/public/car-image/tesla.jpg",
         "description": "Tesla Model S Long Range у відмінному стані. Запас ходу понад 600 км на одному заряді. Автопілот, преміальний салон, панорамний дах та швидка зарядка. Сучасний електромобіль для комфортної та економної експлуатації."
     },
     {
@@ -97,7 +97,7 @@ cars = [
         "transmission": "Автомат",
         "fuel": "Бензин",
         "region": "Дніпро",
-        "image": "https://images.unsplash.com/photo-1594070319944-7c0cbebb6f58?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "image": "https://res.cloudinary.com/dcwkudf64/image/upload/v1780592268/honda_vnmajp.avif",
         "description": "Honda Accord у відмінному технічному стані. Надійний двигун, економна витрата пального та комфортний салон. Автомобіль повністю обслужений."
     },
     {
@@ -111,7 +111,7 @@ cars = [
         "transmission": "Автомат",
         "fuel": "Бензин",
         "region": "Київ",
-        "image": "https://images.unsplash.com/photo-1625231334168-35067f8853ed?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "image": "https://zijtttiunopqxzerspls.supabase.co/storage/v1/object/public/car-image/mustang.avif",
         "description": "Ford Mustang GT з атмосферним V8. Спортивний характер, відмінна динаміка та агресивний дизайн."
     },
     {
@@ -125,7 +125,7 @@ cars = [
         "transmission": "Автомат",
         "fuel": "Дизель",
         "region": "Вінниця",
-        "image": "https://images.unsplash.com/photo-1594502167666-3e87b8c16343?q=80&w=928&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "image": "https://zijtttiunopqxzerspls.supabase.co/storage/v1/object/public/car-image/skoda.avif",
         "description": "Skoda Octavia з мінімальним пробігом. Просторий салон, сучасні системи безпеки та економний дизельний двигун."
     },
     {
@@ -139,7 +139,7 @@ cars = [
         "transmission": "Автомат",
         "fuel": "Бензин",
         "region": "Львів",
-        "image": "https://images.unsplash.com/photo-1587735420291-4672e790db42?q=80&w=726&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "image": "https://zijtttiunopqxzerspls.supabase.co/storage/v1/object/public/car-image/mazda.avif",
         "description": "Mazda CX-5 у максимальній комплектації. Шкіряний салон, адаптивний круїз-контроль та повний привід."
     },
     {
@@ -153,7 +153,7 @@ cars = [
         "transmission": "Автомат",
         "fuel": "Бензин",
         "region": "Дніпро",
-        "image": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "image": "https://zijtttiunopqxzerspls.supabase.co/storage/v1/object/public/car-image/photo-1614162692292-7ac56d7f7f1e.avif",
         "description": "САМАЛЬОТ"
     },
 {
@@ -167,7 +167,7 @@ cars = [
         "transmission": "Механіка",
         "fuel": "Бензин",
         "region": "Львів",
-        "image": "https://cdn1.riastatic.com/photosnew/auto/photo/daewoo_lanos__645027281hd.webp",
+        "image": "https://zijtttiunopqxzerspls.supabase.co/storage/v1/object/public/car-image/samalot.webp",
         "description": "САМАЛЬОТ"
     },
 

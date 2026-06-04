@@ -1,48 +1,17 @@
-from django.shortcuts import render
-from .car_data import cars
+from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
+from .models import Car
 
 def home(request):
-    return render(
-        request,
-        "cars/home.html",
-        {
-            "cars": cars
-        }
-    )
+    cars = Car.objects.all()
+    return render(request, "cars/home.html", {"cars": cars})
 
 def car_detail(request, car_id):
-
-    selected_car = None
-
-    for car in cars:
-
-        if car["id"] == car_id:
-
-            selected_car = car
-            break
-
-    return render(
-        request,
-        "cars/car_detail.html",
-        {
-            "car": selected_car
-        }
-    )
-
-# def search_cars(request):
-#     query = request.GET.get("q", "").lower()
-#
-#     results = []
-#
-#     for car in cars:
-#         if query in car["brand"].lower() or query in car["model"].lower():
-#             results.append(car)
-#
-#     return JsonResponse({"cars": results})
+    car = get_object_or_404(Car, id=car_id)
+    return render(request, "cars/car_detail.html", {"car": car})
 
 def filter_cars(request):
-    filtered = cars
+    filtered = Car.objects.all()
 
     brand = request.GET.get("brand")
     year = request.GET.get("year")
@@ -51,18 +20,32 @@ def filter_cars(request):
     max_price = request.GET.get("max_price")
 
     if brand and brand != "all":
-        filtered = [c for c in filtered if c["brand"] == brand]
+        filtered = filtered.filter(brand=brand)
 
     if year and year != "all":
-        filtered = [c for c in filtered if str(c["year"]) == year]
+        filtered = filtered.filter(year=int(year))
 
     if fuel and fuel != "all":
-        filtered = [c for c in filtered if c["fuel"] == fuel]
+        filtered = filtered.filter(fuel=fuel)
 
     if transmission and transmission != "all":
-        filtered = [c for c in filtered if c["transmission"] == transmission]
+        filtered = filtered.filter(transmission=transmission)
 
     if max_price and max_price != "all":
-        filtered = [c for c in filtered if c["price"] <= int(max_price)]
+        filtered = filtered.filter(price__lte=int(max_price))
 
-    return JsonResponse({"cars": filtered})
+    cars_data = []
+    for car in filtered:
+        cars_data.append({
+            'id': car.id,
+            'brand': car.brand,
+            'model': car.model,
+            'price': car.price,
+            'year': car.year,
+            'mileage': car.mileage,
+            'engine': car.engine,
+            'region': car.region,
+            'image': car.image.url if car.image else '/static/cars/img/placeholder.png',
+        })
+
+    return JsonResponse({"cars": cars_data})

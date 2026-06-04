@@ -122,9 +122,9 @@
 
     <div class="cars-grid" id="carsGrid">
 
-        {% for car in cars %}
+         {% for car in cars %}
         <a href="{% url 'car_detail' car.id %}" class="car-card">
-            <img src="{{ car.image }}">
+            <img src="{% if car.image %}{{ car.image.url }}{% else %}/static/cars/img/placeholder.png{% endif %}" alt="{{ car.brand }} {{ car.model }}">
 
             <div class="car-info">
                 <h3>{{ car.brand }} {{ car.model }}</h3>
