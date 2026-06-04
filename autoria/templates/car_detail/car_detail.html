@@ -1,13 +1,36 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Деталі автомобіля{% endblock %}
+{% block title %}{{ car.brand }} {{ car.model }} {{ car.year }} — AutoRia{% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/car_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/car_detail/car_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/car_detail/gallery.css' %}">
+    <link rel="stylesheet" href="{% static 'css/car_detail/overview.css' %}">
+    <link rel="stylesheet" href="{% static 'css/car_detail/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/car_detail/description.css' %}">
 {% endblock %}
 
 {% block content %}
-    <h1>Деталі автомобіля #{{ car_id }}</h1>
-    <p>Тут буде повна інформація про машину</p>
+    {% include 'car_detail/_breadcrumbs.html' %}
+    <div class="detail-layout container">
+        <div class="detail-main">
+            {% include 'car_detail/_gallery.html' %}
+            {% include 'car_detail/_overview.html' %}
+            {% include 'car_detail/_description.html' %}
+        </div>
+        <aside class="detail-sidebar">
+            {% include 'car_detail/_sidebar.html' %}
+        </aside>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {% include 'components/_footer_detail.html' %}
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/car_detail/gallery.js' %}"></script>
+    <script src="{% static 'js/car_detail/sidebar.js' %}"></script>
+    <script src="{% static 'js/car_detail/description.js' %}"></script>
 {% endblock %}
