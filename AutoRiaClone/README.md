@@ -12,6 +12,7 @@
 - Налаштування оточення (`.env`)
 - База даних (Supabase / Postgres)
 - Медіа (зображення)
+- Авторизація через Google
 - Адмін панель — додавання машин
 - Маршрути / API
 - Міграції та керування БД
@@ -62,6 +63,8 @@ DB_HOST=<DB_HOST>
 DB_PORT=5432
 DEBUG=True
 SECRET_KEY=<your-secret-key>
+GOOGLE_CLIENT_ID=<your-google-oauth-client-id>
+GOOGLE_CLIENT_SECRET=<your-google-oauth-client-secret>
 ```
 
 5) Запустіть міграції і створіть суперюзера:
@@ -110,6 +113,48 @@ SECRET_KEY=django-insecure-...
 ```
 
 Файл `.env` вже створений у репозиторії під час налаштування, але **не комітьте** реальні ключі у git.
+
+---
+
+## Авторизація через Google
+
+Проєкт підтримує вхід і реєстрацію через Google акаунт на базі `django-allauth`.
+
+### Що вже налаштовано
+
+- Додано `django-allauth` у `requirements.txt`.
+- У `autoria_clone/settings.py` підключено `allauth`, `sites` і Google provider.
+- Додано маршрути `accounts/` для входу, виходу та callback-переходів.
+- На сторінках `home.html` та `car_detail.html` з'явилася кнопка **«Увійти через Google»**.
+- Створені спрощені шаблони `templates/account/login.html` і `templates/account/signup.html`.
+
+### Що потрібно зробити в Google Cloud Console
+
+У OAuth клієнті додайте такі redirect URI:
+
+```text
+http://localhost:8000/accounts/google/login/callback/
+```
+
+Якщо будете запускати на продакшені, додайте ще й домен вашого сайту з таким самим шляхом callback.
+
+### Обов'язкові змінні середовища
+
+Додайте у `.env`:
+
+```dotenv
+GOOGLE_CLIENT_ID=...
+GOOGLE_CLIENT_SECRET=...
+```
+
+### Як це працює
+
+1. Користувач натискає **Увійти через Google**.
+2. Django перекидає його на Google OAuth.
+3. Якщо акаунт у системі ще не створений — `django-allauth` створює новий запис автоматично.
+4. Після успішного входу користувач повертається на головну сторінку.
+
+> Якщо `GOOGLE_CLIENT_ID` або `GOOGLE_CLIENT_SECRET` не задані, кнопка відображається, але сам OAuth-запит не зможе завершитися коректно.
 
 ---
 

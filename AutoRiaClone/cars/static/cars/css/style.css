@@ -10,12 +10,19 @@ body{
 }
 
 .header{
-    height:90px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:0 500px;
-    border-bottom:1px solid #e5e5e5;
+    background: #ffffff;
+    border-bottom: 1px solid #e9e9e9;
+}
+
+.header-inner{
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    height: 90px;
+    padding: 0 20px;
 }
 
 .logo{
@@ -23,34 +30,75 @@ body{
     align-items:center;
 }
 
+.logo-link{ text-decoration: none; display:flex; gap:6px; align-items:center }
+
 .auto{
     background:#f15a24;
     color:white;
-    padding:8px 14px;
-    font-size:28px;
-    font-weight:bold;
+    padding:8px 12px;
+    font-size:22px;
+    font-weight:700;
+    border-radius:6px 0 0 6px;
 }
 
 .ria{
     background:#0d3f66;
     color:white;
-    padding:8px 14px;
-    font-size:28px;
-    font-weight:bold;
+    padding:8px 12px;
+    font-size:22px;
+    font-weight:700;
+    border-radius:0 6px 6px 0;
 }
 
-nav{
+.main-nav{
     display:flex;
-    gap:30px;
+    gap:20px;
+    align-items:center;
+    flex: 1;
+    justify-content: center;
 }
 
-nav a{
+.main-nav a{
     text-decoration:none;
-    color:#222;
-    font-size:16px;
+    color:#333;
+    font-size:15px;
+    padding:8px 10px;
+    border-radius:8px;
 }
+
+.main-nav a:hover{ background: rgba(0,0,0,0.04); color: #000 }
+
+.header-actions{
+    display:flex;
+    gap:12px;
+    align-items:center;
+}
+
+.nav-toggle{
+    display:none;
+    background:transparent;
+    border:none;
+    padding:6px;
+    margin-left:8px;
+}
+
+.hamburger{
+    width:22px;
+    height:2px;
+    background:#222;
+    display:block;
+    position:relative;
+}
+.hamburger::before, .hamburger::after{
+    content:''; position:absolute; left:0; right:0; height:2px; background:#222;
+}
+.hamburger::before{ top:-6px }
+.hamburger::after{ top:6px }
 
 .sell-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
     width:200px;
     height:52px;
     border-radius:40px;
@@ -58,6 +106,187 @@ nav a{
     background:white;
     font-size:16px;
     cursor:pointer;
+    text-decoration:none;
+    color:#111;
+}
+
+.auth-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.auth-user {
+    font-size: 15px;
+    color: #222;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.auth-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 20px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.2s ease;
+    white-space: nowrap;
+}
+
+/* Header-specific auth button overrides (higher specificity) */
+.header-actions .auth-btn {
+    min-width: 150px;
+    height: 48px;
+    padding: 6px 14px;
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+.header-actions .auth-btn--google {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    color: #111;
+    border: 1px solid rgba(66,133,244,0.9);
+    box-shadow: 0 2px 8px rgba(66,133,244,0.06);
+}
+
+.header-actions .auth-btn--google:hover {
+    background: #f5f9ff;
+    transform: translateY(-2px);
+}
+
+.auth-icon {
+    width: 28px;
+    height: 28px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    background:#4285F4;
+    color:#fff;
+    font-weight:700;
+    font-size:14px;
+}
+
+.auth-label { display:inline-block }
+
+.auth-btn--google {
+    background: #fff;
+    color: #111;
+    border: 1px solid #ddd;
+}
+
+.auth-btn--google:hover {
+    background: #f5f9ff;
+    border-color: #4285f4;
+    transform: translateY(-2px);
+}
+
+/* FULL WIDTH */
+.auth-btn--full {
+    width: 100%;
+    height: 52px;
+}
+
+.auth-btn--ghost {
+    background: #f7f7f7;
+    color: #111;
+    border: 2px solid #ddd;
+}
+
+.auth-btn--ghost:hover {
+    background: #ececec;
+}
+
+.auth-btn--full {
+    width: 100%;
+    margin-top: 10px;
+}
+
+@media (max-width: 900px){
+    .main-nav{ display:none }
+    .nav-toggle{ display:inline-flex }
+    .header-inner{ padding: 0 14px }
+    .header-actions{ gap:8px }
+    .auth-user{ display:none }
+    .header-actions .auth-btn{ min-width:auto; height:42px; padding:0 10px; font-size:12px }
+    .sell-btn{ width:auto; height:42px; padding:0 12px; font-size:13px }
+}
+
+.auth-page {
+    min-height: calc(100vh - 90px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background:
+        radial-gradient(circle at top left, #ff6b35 0%, transparent 25%),
+        radial-gradient(circle at bottom right, #0d3f66 0%, transparent 30%),
+        linear-gradient(135deg, #f5f7fa, #e9eef5);
+
+    padding: 40px 20px;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 520px;
+
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(18px);
+
+    border-radius: 28px;
+
+    padding: 50px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.12),
+        0 4px 20px rgba(0,0,0,.05);
+
+    border: 1px solid rgba(255,255,255,.4);
+
+    text-align: center;
+
+    animation: authFade .5s ease;
+}
+
+@keyframes authFade {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.auth-card h1 {
+    font-size: 42px;
+    color: #111;
+    margin-bottom: 15px;
+    font-weight: 800;
+}
+
+.auth-card p {
+    color: #666;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+.auth-btn--full {
+    width: 100%;
+}
+
+.auth-page__hint {
+    margin-top: 22px;
+    color: #888;
+    font-size: 14px;
 }
 
 .hero{

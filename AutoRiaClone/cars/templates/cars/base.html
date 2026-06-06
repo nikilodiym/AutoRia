@@ -11,6 +11,51 @@
 </head>
 <body>
 
+<header class="header">
+    <div class="header-inner">
+
+        <div class="logo">
+            <a href="/" class="logo-link">
+                <span class="auto">auto</span>
+                <span class="ria">RIA</span>
+            </a>
+        </div>
+
+        <nav class="main-nav">
+            <a href="#">Вживані авто</a>
+            <a href="#">Нові авто</a>
+            <a href="#">Все для авто</a>
+            <a href="#">GARAGE AUTO.RIA</a>
+            <a href="#">Підтримка 24/7</a>
+        </nav>
+
+        <div class="header-actions">
+
+            {% if user.is_authenticated %}
+                <span class="auth-user">
+                    {{ user.get_full_name|default:user.email|default:user.username }}
+                </span>
+
+                <a class="auth-btn auth-btn--ghost" href="{% url 'account_logout' %}">
+                    Вийти
+                </a>
+            {% else %}
+                <a class="auth-btn auth-btn--google" href="/accounts/google/login/">
+                    <span class="auth-icon" aria-hidden="true">G</span>
+                    <span class="auth-label">Увійти через Google</span>
+                </a>
+            {% endif %}
+
+            <a class="sell-btn" href="#">Продати авто</a>
+
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+
+        </div>
+    </div>
+</header>
+
 {% block content %}
 {% endblock %}
 

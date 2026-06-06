@@ -2,4 +2,8 @@ Django==6.0.5
 psycopg2-binary>=2.9.0
 python-dotenv==1.0.0
 Pillow>=9.0.0
+django-allauth>=65.18.0
+requests>=2.34.0
+PyJWT>=2.13.0
+cryptography>=48.0.0
 
