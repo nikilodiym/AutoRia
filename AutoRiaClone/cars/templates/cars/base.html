@@ -1,5 +1,4 @@
 {% load static %}
-{% load socialaccount %}
 
 <!DOCTYPE html>
 <html lang="uk">
@@ -7,8 +6,7 @@
     <meta charset="UTF-8">
     <title>AutoRia Clone</title>
 
-    <link rel="stylesheet"
-          href="{% static 'cars/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'cars/css/style.css' %}">
 </head>
 <body>
 
@@ -28,15 +26,15 @@
             <a href="#">Все для авто</a>
             <a href="#">GARAGE AUTO.RIA</a>
             <a href="#">Підтримка 24/7</a>
-            <a class="auth-btn auth-btn--google auth-btn--full"
-           href="{% provider_login_url 'google' %}">
-                <span class="auth-icon" aria-hidden="true">G</span>
-                <span class="auth-label">Продовжити через Google</span>
-            </a>
-<!--            <a class="auth-btn auth-btn&#45;&#45;google auth-btn&#45;&#45;full" href="{% provider_login_url 'google' %}">-->
-<!--                <span class="auth-icon" aria-hidden="true">G</span>-->
-<!--                <span class="auth-label">Продовжити через Google</span>-->
-<!--            </a>-->
+
+            <button
+                class="auth-btn auth-btn--google auth-btn--full"
+                id="googleBtn">
+                <span class="auth-icon">G</span>
+                <span class="auth-label">
+                    Продовжити через Google
+                </span>
+            </button>
         </nav>
     </div>
 </header>
@@ -44,7 +42,7 @@
 {% block content %}
 {% endblock %}
 
-<script src="{% static 'cars/js/main.js' %}"></script>
+<script type="module" src="{% static 'cars/js/firebase.js' %}"></script>
 
 </body>
 </html>

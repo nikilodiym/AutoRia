@@ -6,4 +6,5 @@ urlpatterns = [
     # path("search/", views.search_cars, name="search_cars"),
     path("filter/", views.filter_cars, name="filter_cars"),
     path('car/<int:car_id>/',views.car_detail,name='car_detail'),
+    path("auth/google/",views.google_auth,name="google_auth"),
 ]

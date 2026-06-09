@@ -1,6 +1,37 @@
+import json
 from django.shortcuts import render, get_object_or_404
-from django.http import JsonResponse
 from .models import Car
+from django.http import JsonResponse
+from django.http import JsonResponse
+from django.contrib.auth import login
+from django.contrib.auth.models import User
+from firebase_admin import auth
+from .firebase import *
+
+
+def google_auth(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "POST only"}, status=400)
+
+    data = json.loads(request.body)
+    token = data.get("token")
+
+    decoded = auth.verify_id_token(token)
+
+    email = decoded["email"]
+
+    user, created = User.objects.get_or_create(
+        username=email,
+        defaults={
+            "email": email
+        }
+    )
+
+    login(request, user)
+
+    return JsonResponse({
+        "success": True
+    })
 
 def home(request):
     cars = Car.objects.all()
