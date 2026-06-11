@@ -2,9 +2,9 @@ from django.shortcuts import render
 from .models import Car
 # Create your views here.
 
-def home(request):
+def index(request):
     cars = Car.objects.all()
-    return render(request, 'home.html', {'cars': cars})
+    return render(request, 'index.html', {'cars': cars})
 
 CARS = [
     # {
