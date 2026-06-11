@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link rel="stylesheet" href="{% static 'css/components/header.css' %}">
     <link rel="stylesheet" href="{% static 'css/components/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sell.css' %}">
     {% block extra_css %}{% endblock %}
 </head>
 <body>
@@ -17,6 +18,13 @@
     {% endblock %}
 
     <main class="main">
+        {% if messages %}
+            <div class="container">
+                {% for message in messages %}
+                    <div class="sell-message sell-message--{{ message.tags }}" style="margin-bottom: 16px;">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
         {% block content %}{% endblock %}
     </main>
 

@@ -6,7 +6,6 @@
     <div class="recs-grid" id="recsGrid">
 
         {% for car in cars %}
-
         <div class="car-card" data-card>
 
             <div class="car-card__visual">
@@ -108,6 +107,12 @@
         </div>
 
         {% endfor %}
+
+        {% if not cars %}
+        <div class="recs-empty">
+            <p>Поки що немає оголошень. <a href="{% url 'sell_car' %}">Додайте своє авто</a> — воно з'явиться тут.</p>
+        </div>
+        {% endif %}
 
     </div>
 

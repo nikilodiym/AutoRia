@@ -361,3 +361,19 @@
 .recs-more-btn:hover {
     background-color: #f0f0f0;
 }
+
+.recs-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 48px 24px;
+    border: 1px dashed #d9d9d9;
+    border-radius: 12px;
+    color: #666;
+    font-size: 16px;
+}
+
+.recs-empty a {
+    color: #2c2c2c;
+    font-weight: 600;
+    text-decoration: underline;
+}
