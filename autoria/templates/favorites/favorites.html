@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Обране - AutoRia{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/pages/auto_pages.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="auto-page">
+    <section class="auto-hero">
+        <div class="container auto-hero__inner">
+            <div class="auto-hero__content">
+                <span class="auto-kicker">Збережені оголошення</span>
+                <h1 class="auto-hero__title">Обране</h1>
+                <p class="auto-hero__text">Тут користувач очікує бачити збережені авто. Поки немає авторизованого списку, сторінка показує приклади з каталогу.</p>
+                <div class="auto-hero__actions">
+                    <a href="{% url 'search' %}" class="auto-btn auto-btn--primary">Знайти авто</a>
+                    <a href="{% url 'login' %}" class="auto-btn auto-btn--secondary">Увійти</a>
+                </div>
+            </div>
+            <aside class="auto-panel">
+                <h2 class="auto-panel__title">Можливості</h2>
+                <div class="auto-stats">
+                    <div class="auto-stat"><span>Порівняння</span><strong>ціни</strong></div>
+                    <div class="auto-stat"><span>Сповіщення</span><strong>про зміни</strong></div>
+                    <div class="auto-stat"><span>Доступ</span><strong>з кабінету</strong></div>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <section class="container auto-section">
+        <div class="auto-section__head">
+            <h2 class="auto-section__title">Може сподобатися</h2>
+            <span class="auto-section__hint">Тимчасова добірка для порожнього списку</span>
+        </div>
+        <div class="auto-grid">
+            {% for car in cars %}
+                <a href="{% url 'car_detail' car.id %}" class="auto-card">
+                    <img src="{{ car.image }}" alt="{{ car.brand }} {{ car.model }}" class="auto-card__image">
+                    <div class="auto-card__body">
+                        <h3 class="auto-card__title">{{ car.brand }} {{ car.model }} {{ car.year }}</h3>
+                        <span class="auto-card__price">${{ car.price_usd }}</span>
+                        <p class="auto-card__meta">{{ car.mileage }} тис. км · {{ car.engine }} · {{ car.city }}</p>
+                    </div>
+                </a>
+            {% empty %}
+                <div class="empty-state">
+                    <h2>В обраному поки порожньо</h2>
+                    <p>Перейдіть до пошуку і збережіть цікаві пропозиції.</p>
+                    <a href="{% url 'search' %}" class="auto-btn auto-btn--primary">До пошуку</a>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+{% endblock %}
