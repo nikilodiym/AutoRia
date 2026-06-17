@@ -69,7 +69,7 @@ class Car(models.Model):
         if not self.posted:
             self.posted = 'Щойно'
         if not self.image:
-            self.image = '/static/images/index/filter_logos/default_logo.png'
+            self.image = '/static/images/cars/toyota_camry_car.jpg'
         super().save(*args, **kwargs)
 
     @property

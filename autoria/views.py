@@ -1,7 +1,9 @@
 from django.contrib import messages
+from django.contrib.auth import login as auth_login, logout as auth_logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import CarForm
+from .forms import CarForm, LoginForm, RegisterForm
 from .models import Car
 
 
@@ -28,6 +30,7 @@ def car_services(request):
     return render(request, 'car_services/car_services.html')
 
 
+@login_required
 def garage(request):
     return render(request, 'garage/garage.html')
 
@@ -41,6 +44,7 @@ def search(request):
     return render(request, 'search/search.html', {'cars': cars})
 
 
+@login_required
 def favorites(request):
     cars = Car.objects.all()[:3]
     return render(request, 'favorites/favorites.html', {'cars': cars})
@@ -55,6 +59,7 @@ def car_detail(request, car_id):
     })
 
 
+@login_required
 def sell_car(request):
     if request.method == 'POST':
         form = CarForm(request.POST)
@@ -72,4 +77,33 @@ def sell_car(request):
 
 
 def login(request):
-    return render(request, 'login/login.html')
+    if request.user.is_authenticated:
+        return redirect('index')
+
+    form = LoginForm(request, data=request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        auth_login(request, form.get_user())
+        messages.success(request, 'Ви успішно увійшли в кабінет.')
+        return redirect(request.GET.get('next') or 'index')
+
+    return render(request, 'login/login.html', {'form': form})
+
+
+def register(request):
+    if request.user.is_authenticated:
+        return redirect('index')
+
+    form = RegisterForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        user = form.save()
+        auth_login(request, user)
+        messages.success(request, 'Акаунт створено. Вітаємо на AUTO.RIA!')
+        return redirect('index')
+
+    return render(request, 'register/register.html', {'form': form})
+
+
+def logout(request):
+    auth_logout(request)
+    messages.success(request, 'Ви вийшли з акаунта.')
+    return redirect('index')

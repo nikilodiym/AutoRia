@@ -7,7 +7,9 @@ from .views import (
     garage,
     index,
     login,
+    logout,
     new_cars,
+    register,
     search,
     sell_car,
     support,
@@ -26,4 +28,6 @@ urlpatterns = [
     path('car/<int:car_id>/', car_detail, name='car_detail'),
     path('sell/', sell_car, name='sell_car'),
     path('login/', login, name='login'),
+    path('register/', register, name='register'),
+    path('logout/', logout, name='logout'),
 ]

@@ -93,6 +93,37 @@
     background-color: #f0f0f0;
 }
 
+.header-user,
+.header-logout {
+    display: inline-flex;
+    align-items: center;
+    min-height: 38px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.header-user {
+    max-width: 130px;
+    padding: 0 14px;
+    background: #e2f0fb;
+    color: #2474a6;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.header-logout {
+    padding: 0 12px;
+    border: 1px solid #d9d9d9;
+    color: #555;
+}
+
+.header-logout:hover,
+.header-user:hover {
+    background: #f0f0f0;
+}
+
 .banner {
     background-color: #fff;
     padding: 8px 0;

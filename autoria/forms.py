@@ -1,6 +1,63 @@
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.models import User
 
 from .models import Car
+
+
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(
+        label='Логін',
+        widget=forms.TextInput(attrs={
+            'class': 'auth-field__input',
+            'placeholder': 'Ваш логін',
+            'autofocus': True,
+        }),
+    )
+    password = forms.CharField(
+        label='Пароль',
+        widget=forms.PasswordInput(attrs={
+            'class': 'auth-field__input',
+            'placeholder': 'Ваш пароль',
+        }),
+    )
+
+
+class RegisterForm(UserCreationForm):
+    email = forms.EmailField(
+        label='Email',
+        required=False,
+        widget=forms.EmailInput(attrs={
+            'class': 'auth-field__input',
+            'placeholder': 'name@example.com',
+        }),
+    )
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2')
+        labels = {
+            'username': 'Логін',
+            'password1': 'Пароль',
+            'password2': 'Повторіть пароль',
+        }
+        widgets = {
+            'username': forms.TextInput(attrs={
+                'class': 'auth-field__input',
+                'placeholder': 'Придумайте логін',
+            }),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['password1'].widget.attrs.update({
+            'class': 'auth-field__input',
+            'placeholder': 'Мінімум 8 символів',
+        })
+        self.fields['password2'].widget.attrs.update({
+            'class': 'auth-field__input',
+            'placeholder': 'Повторіть пароль',
+        })
 
 
 class CarForm(forms.ModelForm):
