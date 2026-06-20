@@ -235,3 +235,7 @@
     background: #1a8a1a;
     flex-shrink: 0;
 }
+
+.sidebar-fav-form {
+    flex-shrink: 0;
+}

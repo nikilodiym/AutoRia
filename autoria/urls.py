@@ -16,6 +16,7 @@ from .views import (
     search,
     sell_car,
     support,
+    toggle_favorite,
     used_cars,
 )
 
@@ -31,6 +32,7 @@ urlpatterns = [
     path('support/', support, name='support'),
     path('search/', search, name='search'),
     path('favorites/', favorites, name='favorites'),
+    path('favorites/<int:car_id>/toggle/', toggle_favorite, name='toggle_favorite'),
     path('car/<int:car_id>/', car_detail, name='car_detail'),
     path('sell/', sell_car, name='sell_car'),
     path('login/', login, name='login'),

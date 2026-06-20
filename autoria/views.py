@@ -4,30 +4,45 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import CarForm, LoginForm, RegisterForm
-from .models import Car
+from .models import Car, Favorite
 
 
 def superuser_required(view_func):
     return user_passes_test(lambda user: user.is_superuser, login_url='login')(view_func)
 
 
+def get_favorite_car_ids(request):
+    if not request.user.is_authenticated:
+        return set()
+    return set(Favorite.objects.filter(user=request.user).values_list('car_id', flat=True))
+
+
 def index(request):
     cars = Car.objects.all()
-    return render(request, 'index/index.html', {'cars': cars})
+    return render(request, 'index/index.html', {
+        'cars': cars,
+        'favorite_car_ids': get_favorite_car_ids(request),
+    })
 
 
 def used_cars(request):
     cars = Car.objects.filter(year__lt=2024)
     if not cars.exists():
         cars = Car.objects.all()
-    return render(request, 'used_cars/used_cars.html', {'cars': cars})
+    return render(request, 'used_cars/used_cars.html', {
+        'cars': cars,
+        'favorite_car_ids': get_favorite_car_ids(request),
+    })
 
 
 def new_cars(request):
     cars = Car.objects.filter(year__gte=2024)
     if not cars.exists():
         cars = Car.objects.all()[:3]
-    return render(request, 'new_cars/new_cars.html', {'cars': cars})
+    return render(request, 'new_cars/new_cars.html', {
+        'cars': cars,
+        'favorite_car_ids': get_favorite_car_ids(request),
+    })
 
 
 def car_services(request):
@@ -45,13 +60,19 @@ def support(request):
 
 def search(request):
     cars = Car.objects.all()
-    return render(request, 'search/search.html', {'cars': cars})
+    return render(request, 'search/search.html', {
+        'cars': cars,
+        'favorite_car_ids': get_favorite_car_ids(request),
+    })
 
 
 @login_required
 def favorites(request):
-    cars = Car.objects.all()[:3]
-    return render(request, 'favorites/favorites.html', {'cars': cars})
+    cars = Car.objects.filter(favorited_by__user=request.user)
+    return render(request, 'favorites/favorites.html', {
+        'cars': cars,
+        'favorite_car_ids': get_favorite_car_ids(request),
+    })
 
 
 def car_detail(request, car_id):
@@ -60,7 +81,20 @@ def car_detail(request, car_id):
     return render(request, 'car_detail/car_detail.html', {
         'car': car,
         'similar_cars': similar_cars,
+        'favorite_car_ids': get_favorite_car_ids(request),
     })
+
+
+@login_required
+def toggle_favorite(request, car_id):
+    car = get_object_or_404(Car, pk=car_id)
+    favorite, created = Favorite.objects.get_or_create(user=request.user, car=car)
+    if created:
+        messages.success(request, f'{car.brand} {car.model} додано в обране.')
+    else:
+        favorite.delete()
+        messages.success(request, f'{car.brand} {car.model} прибрано з обраного.')
+    return redirect(request.POST.get('next') or 'favorites')
 
 
 @login_required

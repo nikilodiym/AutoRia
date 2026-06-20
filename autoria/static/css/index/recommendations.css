@@ -377,3 +377,18 @@
     font-weight: 600;
     text-decoration: underline;
 }
+
+.favorite-form {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    z-index: 5;
+}
+
+.favorite-form .car-card__fav {
+    position: static;
+}
+
+.favorite-form .car-card__fav.is-liked {
+    color: #e3000f;
+}
