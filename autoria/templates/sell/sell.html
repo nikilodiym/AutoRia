@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Продати авто — AutoRia{% endblock %}
+{% block title %}{{ page_title|default:'Продати авто' }} — AutoRia{% endblock %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/sell.css' %}">
@@ -10,8 +10,8 @@
 {% block content %}
 <div class="sell-page container">
     <div class="sell-header">
-        <h1 class="sell-header__title">Продати авто</h1>
-        <p class="sell-header__subtitle">Заповніть параметри вашого автомобіля — після публікації оголошення з'явиться на головній сторінці</p>
+        <h1 class="sell-header__title">{{ page_title|default:'Продати авто' }}</h1>
+        <p class="sell-header__subtitle">{{ page_subtitle|default:"Заповніть параметри вашого автомобіля — після публікації оголошення з'явиться на головній сторінці" }}</p>
     </div>
 
     {% if messages %}
@@ -156,8 +156,8 @@
         </section>
 
         <div class="sell-actions">
-            <a href="{% url 'index' %}" class="sell-btn sell-btn--secondary">Скасувати</a>
-            <button type="submit" class="sell-btn sell-btn--primary">Опублікувати оголошення</button>
+            <a href="{% if cancel_url %}{% url cancel_url %}{% else %}{% url 'index' %}{% endif %}" class="sell-btn sell-btn--secondary">Скасувати</a>
+            <button type="submit" class="sell-btn sell-btn--primary">{{ submit_label|default:'Опублікувати оголошення' }}</button>
         </div>
     </form>
 </div>

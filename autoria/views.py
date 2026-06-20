@@ -1,10 +1,14 @@
 from django.contrib import messages
 from django.contrib.auth import login as auth_login, logout as auth_logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import CarForm, LoginForm, RegisterForm
 from .models import Car
+
+
+def superuser_required(view_func):
+    return user_passes_test(lambda user: user.is_superuser, login_url='login')(view_func)
 
 
 def index(request):
@@ -74,6 +78,45 @@ def sell_car(request):
         form = CarForm()
 
     return render(request, 'sell/sell.html', {'form': form})
+
+
+@superuser_required
+def admin_cars(request):
+    cars = Car.objects.all()
+    return render(request, 'admin_cars/admin_cars.html', {'cars': cars})
+
+
+@superuser_required
+def admin_car_edit(request, car_id):
+    car = get_object_or_404(Car, pk=car_id)
+    if request.method == 'POST':
+        form = CarForm(request.POST, instance=car)
+        if form.is_valid():
+            car = form.save()
+            messages.success(request, f'Оголошення {car.brand} {car.model} оновлено.')
+            return redirect('admin_cars')
+    else:
+        form = CarForm(instance=car)
+
+    return render(request, 'sell/sell.html', {
+        'form': form,
+        'page_title': 'Редагувати авто',
+        'page_subtitle': 'Оновіть дані оголошення. Зміни одразу відобразяться на сайті.',
+        'submit_label': 'Зберегти зміни',
+        'cancel_url': 'admin_cars',
+    })
+
+
+@superuser_required
+def admin_car_delete(request, car_id):
+    car = get_object_or_404(Car, pk=car_id)
+    if request.method == 'POST':
+        car_name = f'{car.brand} {car.model} {car.year}'
+        car.delete()
+        messages.success(request, f'Оголошення {car_name} видалено.')
+        return redirect('admin_cars')
+
+    return render(request, 'admin_cars/admin_car_delete.html', {'car': car})
 
 
 def login(request):

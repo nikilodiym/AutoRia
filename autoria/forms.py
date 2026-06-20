@@ -202,3 +202,12 @@ class CarForm(forms.ModelForm):
         if year < 1980 or year > 2026:
             raise forms.ValidationError('Вкажіть коректний рік випуску.')
         return year
+
+    def save(self, commit=True):
+        car = super().save(commit=False)
+        if car.price_usd:
+            car.price_uah = car.price_usd * 44
+        if commit:
+            car.save()
+            self.save_m2m()
+        return car

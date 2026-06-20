@@ -1,6 +1,9 @@
 from django.urls import path
 
 from .views import (
+    admin_car_delete,
+    admin_car_edit,
+    admin_cars,
     car_detail,
     car_services,
     favorites,
@@ -18,6 +21,9 @@ from .views import (
 
 urlpatterns = [
     path('', index, name='index'),
+    path('admin-cars/', admin_cars, name='admin_cars'),
+    path('admin-cars/<int:car_id>/edit/', admin_car_edit, name='admin_car_edit'),
+    path('admin-cars/<int:car_id>/delete/', admin_car_delete, name='admin_car_delete'),
     path('used-cars/', used_cars, name='used_cars'),
     path('new-cars/', new_cars, name='new_cars'),
     path('car-services/', car_services, name='car_services'),
