@@ -11,6 +11,8 @@ let currentCurrency = '$';
 function switchTab(clicked) {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('tab--active'));
     clicked.classList.add('tab--active');
+    const conditionInput = document.getElementById('conditionInput');
+    if (conditionInput) conditionInput.value = clicked.dataset.condition || 'all';
 }
 
 document.querySelectorAll('.dropdown__trigger').forEach(trigger => {
@@ -38,6 +40,8 @@ let selectedBrand = '';
 let selectedModels = [];
 function selectBrand(radio) {
     selectedBrand = radio.value; selectedModels = [];
+    const brandInput = document.getElementById('brandInput');
+    if (brandInput) brandInput.value = selectedBrand;
     const dd = radio.closest('.dropdown');
     dd.querySelector('.brand-step--brands').style.display = 'none';
     dd.querySelector('.brand-step--models').style.display = 'block';
@@ -54,6 +58,8 @@ function selectBrand(radio) {
 }
 function resetBrand() {
     selectedBrand = ''; selectedModels = [];
+    const brandInput = document.getElementById('brandInput');
+    if (brandInput) brandInput.value = '';
     const dd = document.querySelector('[data-dropdown="brand"]');
     dd.querySelector('.brand-step--brands').style.display = 'block';
     dd.querySelector('.brand-step--models').style.display = 'none';
@@ -63,6 +69,8 @@ function resetBrand() {
 function applyBrand() {
     const dd = document.querySelector('[data-dropdown="brand"]');
     selectedModels = [...dd.querySelectorAll('.dropdown__list--models .dropdown__checkbox:checked')].map(cb => cb.value);
+    const brandInput = document.getElementById('brandInput');
+    if (brandInput) brandInput.value = selectedBrand;
     updateBrandValue(dd); dd.classList.remove('is-open');
 }
 function updateBrandValue(dd) {
@@ -76,9 +84,11 @@ function updateBrandValue(dd) {
 (function initYears() {
     const fromEl = document.getElementById('yearFrom');
     const toEl = document.getElementById('yearTo');
+    const selectedFrom = fromEl?.dataset.selectedYear || '';
+    const selectedTo = toEl?.dataset.selectedYear || '';
     for (let y = 2026; y >= 1900; y--) {
-        fromEl.innerHTML += `<label class="dropdown__option"><input type="radio" name="year_from" value="${y}" class="dropdown__radio"><span>${y}</span></label>`;
-        toEl.innerHTML += `<label class="dropdown__option"><input type="radio" name="year_to" value="${y}" class="dropdown__radio"><span>${y}</span></label>`;
+        fromEl.innerHTML += `<label class="dropdown__option"><input type="radio" name="year_from" value="${y}" class="dropdown__radio"${String(y) === selectedFrom ? ' checked' : ''}><span>${y}</span></label>`;
+        toEl.innerHTML += `<label class="dropdown__option"><input type="radio" name="year_to" value="${y}" class="dropdown__radio"${String(y) === selectedTo ? ' checked' : ''}><span>${y}</span></label>`;
     }
 })();
 function applyYear() {
@@ -129,3 +139,40 @@ function clearDropdown(e, name) {
     if (name === 'brand') resetBrand();
     valueEl.textContent = placeholder; trigger.classList.remove('has-label'); dd.classList.remove('is-open');
 }
+
+document.querySelector('.filters')?.addEventListener('submit', function() {
+    const selectedBrandRadio = document.querySelector('[name="brand_select"]:checked');
+    const brandInput = document.getElementById('brandInput');
+    if (brandInput && selectedBrandRadio) brandInput.value = selectedBrandRadio.value;
+});
+
+(function initSelectedFilterLabels() {
+    const selectedType = document.querySelector('[data-dropdown="type"] .dropdown__radio:checked');
+    if (selectedType) {
+        const dd = selectedType.closest('.dropdown');
+        dd.querySelector('.dropdown__value').textContent = selectedType.nextElementSibling.textContent;
+    }
+
+    const selectedBrandRadio = document.querySelector('[name="brand_select"]:checked');
+    if (selectedBrandRadio) {
+        selectedBrand = selectedBrandRadio.value;
+        const brandInput = document.getElementById('brandInput');
+        if (brandInput) brandInput.value = selectedBrand;
+        const dd = selectedBrandRadio.closest('.dropdown');
+        updateBrandValue(dd);
+    }
+
+    if (document.querySelector('[name="year_from"]:checked') || document.querySelector('[name="year_to"]:checked')) {
+        applyYear();
+    }
+
+    const priceFrom = document.getElementById('priceFrom')?.value;
+    const priceTo = document.getElementById('priceTo')?.value;
+    if (priceFrom || priceTo) applyPrice();
+
+    ['region', 'fuel', 'transmission'].forEach(name => {
+        if (document.querySelector(`[data-dropdown="${name}"] .dropdown__checkbox:checked`)) {
+            applyCheckbox(name);
+        }
+    });
+})();
