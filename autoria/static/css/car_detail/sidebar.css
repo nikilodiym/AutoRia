@@ -189,12 +189,60 @@
     font-weight: 700;
     cursor: pointer;
     text-align: center;
+    text-decoration: none;
     margin-bottom: 10px;
     transition: background-color 0.2s;
 }
 
 .sidebar-seller__phone:hover {
     background: #28a02a;
+}
+
+.sidebar-seller__phone--disabled,
+.sidebar-seller__phone--disabled:hover {
+    background: #b8c5ca;
+    cursor: default;
+}
+
+.seller-message {
+    display: grid;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.seller-message__label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #2c2c2c;
+}
+
+.seller-message__input {
+    width: 100%;
+    min-height: 96px;
+    padding: 12px 14px;
+    border: 1px solid #cbdde4;
+    border-radius: 10px;
+    background: #fff;
+    color: #2c2c2c;
+    font: inherit;
+    resize: vertical;
+    outline: none;
+}
+
+.seller-message__input:focus {
+    border-color: #30b232;
+    box-shadow: 0 0 0 3px rgba(48, 178, 50, 0.16);
+}
+
+.seller-message__status {
+    min-height: 18px;
+    font-size: 13px;
+    color: #1a8a1a;
+    text-align: center;
+}
+
+.seller-message__status.is-error {
+    color: #c62828;
 }
 
 .sidebar-seller__chat {
