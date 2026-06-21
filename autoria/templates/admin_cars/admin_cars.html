@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Керування авто — AutoRia{% endblock %}
+{% block title %}Адмін панель — AutoRia{% endblock %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/admin_cars.css' %}">
@@ -11,12 +11,14 @@
 <div class="admin-cars-page container">
     <div class="admin-cars-header">
         <div>
-            <h1 class="admin-cars-header__title">Керування авто</h1>
-            <p class="admin-cars-header__subtitle">Редагуйте або видаляйте оголошення, які вже є на сайті.</p>
+            <h1 class="admin-cars-header__title">Адмін панель</h1>
+            <p class="admin-cars-header__subtitle">Редагуйте або видаляйте оголошення та керуйте користувачами сайту.</p>
         </div>
         <a href="{% url 'sell_car' %}" class="admin-cars-btn admin-cars-btn--primary">Додати авто</a>
     </div>
 
+    <section class="admin-panel-section">
+        <h2 class="admin-panel-section__title">Оголошення</h2>
     {% if cars %}
         <div class="admin-cars-list">
             {% for car in cars %}
@@ -47,5 +49,37 @@
             <p>Коли авто з'являться на сайті, ви зможете керувати ними тут.</p>
         </div>
     {% endif %}
+    </section>
+
+    <section class="admin-panel-section">
+        <h2 class="admin-panel-section__title">Користувачі</h2>
+        {% if users %}
+            <div class="admin-users-list">
+                {% for user in users %}
+                    <article class="admin-user">
+                        <div class="admin-user__body">
+                            <h3 class="admin-user__name">{{ user.username }}</h3>
+                            <p class="admin-user__meta">
+                                {{ user.email|default:"Пошта не вказана" }}
+                                {% if user.is_superuser %} · Адмін{% endif %}
+                            </p>
+                        </div>
+                        <div class="admin-user__actions">
+                            {% if user == request.user %}
+                                <span class="admin-cars-btn admin-cars-btn--disabled">Поточний акаунт</span>
+                            {% else %}
+                                <a href="{% url 'admin_user_delete' user.id %}" class="admin-cars-btn admin-cars-btn--danger">Видалити</a>
+                            {% endif %}
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="admin-cars-empty">
+                <h2>Користувачів поки немає</h2>
+                <p>Зареєстровані акаунти з'являться в цьому списку.</p>
+            </div>
+        {% endif %}
+    </section>
 </div>
 {% endblock %}

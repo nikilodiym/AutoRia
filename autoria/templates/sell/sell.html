@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="{% static 'css/sell.css' %}">
 {% endblock %}
 
+{% block extra_js %}
+    {{ car_catalog|json_script:"car-catalog-data" }}
+    <script src="{% static 'js/sell/car_catalog.js' %}"></script>
+{% endblock %}
+
 {% block content %}
 <div class="sell-page container">
     <div class="sell-header">
@@ -35,11 +40,17 @@
                 <div class="sell-field">
                     <label class="sell-field__label" for="{{ form.brand.id_for_label }}">{{ form.brand.label }} *</label>
                     {{ form.brand }}
+                    <datalist id="car-brand-options">
+                        {% for brand, models in car_catalog.items %}
+                            <option value="{{ brand }}"></option>
+                        {% endfor %}
+                    </datalist>
                     {% if form.brand.errors %}<span class="sell-field__error">{{ form.brand.errors.0 }}</span>{% endif %}
                 </div>
                 <div class="sell-field">
                     <label class="sell-field__label" for="{{ form.model.id_for_label }}">{{ form.model.label }} *</label>
                     {{ form.model }}
+                    <datalist id="car-model-options"></datalist>
                     {% if form.model.errors %}<span class="sell-field__error">{{ form.model.errors.0 }}</span>{% endif %}
                 </div>
                 <div class="sell-field">

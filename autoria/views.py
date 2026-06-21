@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 
+from .car_catalog import CAR_MODELS
 from .forms import CarForm, LoginForm, RegisterForm
 from .models import Car, Favorite
 
@@ -230,13 +231,20 @@ def sell_car(request):
     else:
         form = CarForm()
 
-    return render(request, 'sell/sell.html', {'form': form})
+    return render(request, 'sell/sell.html', {
+        'form': form,
+        'car_catalog': CAR_MODELS,
+    })
 
 
 @superuser_required
 def admin_cars(request):
     cars = Car.objects.all()
-    return render(request, 'admin_cars/admin_cars.html', {'cars': cars})
+    users = User.objects.order_by('-is_superuser', 'username')
+    return render(request, 'admin_cars/admin_cars.html', {
+        'cars': cars,
+        'users': users,
+    })
 
 
 @superuser_required
@@ -253,6 +261,7 @@ def admin_car_edit(request, car_id):
 
     return render(request, 'sell/sell.html', {
         'form': form,
+        'car_catalog': CAR_MODELS,
         'page_title': 'Редагувати авто',
         'page_subtitle': 'Оновіть дані оголошення. Зміни одразу відобразяться на сайті.',
         'submit_label': 'Зберегти зміни',
@@ -270,6 +279,22 @@ def admin_car_delete(request, car_id):
         return redirect('admin_cars')
 
     return render(request, 'admin_cars/admin_car_delete.html', {'car': car})
+
+
+@superuser_required
+def admin_user_delete(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    if user == request.user:
+        messages.error(request, 'Не можна видалити власний адмін-акаунт.')
+        return redirect('admin_cars')
+
+    if request.method == 'POST':
+        username = user.username
+        user.delete()
+        messages.success(request, f'Користувача {username} видалено.')
+        return redirect('admin_cars')
+
+    return render(request, 'admin_cars/admin_user_delete.html', {'user_to_delete': user})
 
 
 def login(request):

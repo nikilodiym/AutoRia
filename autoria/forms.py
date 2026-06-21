@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
 
+from .car_catalog import CAR_MODELS
 from .models import Car
 
 
@@ -26,10 +27,11 @@ class LoginForm(AuthenticationForm):
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(
         label='Email',
-        required=False,
+        required=True,
         widget=forms.EmailInput(attrs={
             'class': 'auth-field__input',
             'placeholder': 'name@example.com',
+            'required': True,
         }),
     )
 
@@ -58,6 +60,12 @@ class RegisterForm(UserCreationForm):
             'class': 'auth-field__input',
             'placeholder': 'Повторіть пароль',
         })
+
+    def clean_email(self):
+        email = self.cleaned_data['email'].strip().lower()
+        if User.objects.filter(email__iexact=email).exists():
+            raise forms.ValidationError('Користувач з такою поштою вже існує.')
+        return email
 
 
 class CarForm(forms.ModelForm):
@@ -88,11 +96,15 @@ class CarForm(forms.ModelForm):
         widgets = {
             'brand': forms.TextInput(attrs={
                 'class': 'sell-field__input',
-                'placeholder': 'Наприклад, Toyota',
+                'placeholder': 'Почніть вводити марку',
+                'list': 'car-brand-options',
+                'autocomplete': 'off',
             }),
             'model': forms.TextInput(attrs={
                 'class': 'sell-field__input',
-                'placeholder': 'Наприклад, Camry',
+                'placeholder': 'Спочатку виберіть марку',
+                'list': 'car-model-options',
+                'autocomplete': 'off',
             }),
             'year': forms.NumberInput(attrs={
                 'class': 'sell-field__input',
@@ -196,6 +208,27 @@ class CarForm(forms.ModelForm):
         ]
         for field_name in optional_fields:
             self.fields[field_name].required = False
+
+        self.fields['brand'].widget.attrs['data-car-catalog'] = 'brand'
+        self.fields['model'].widget.attrs['data-car-catalog'] = 'model'
+
+    def clean_brand(self):
+        brand = self.cleaned_data['brand'].strip()
+        matching_brand = next((known_brand for known_brand in CAR_MODELS if known_brand.lower() == brand.lower()), None)
+        if not matching_brand:
+            raise forms.ValidationError('Оберіть марку зі списку.')
+        return matching_brand
+
+    def clean_model(self):
+        model = self.cleaned_data['model'].strip()
+        brand = self.cleaned_data.get('brand')
+        if not brand:
+            return model
+
+        matching_model = next((known_model for known_model in CAR_MODELS[brand] if known_model.lower() == model.lower()), None)
+        if not matching_model:
+            raise forms.ValidationError('Оберіть модель, яка відповідає вибраній марці.')
+        return matching_model
 
     def clean_year(self):
         year = self.cleaned_data['year']
