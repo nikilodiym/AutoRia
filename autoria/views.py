@@ -171,7 +171,11 @@ def car_services(request):
 
 @login_required
 def garage(request):
-    return render(request, 'garage/garage.html')
+    cars = Car.objects.filter(owner=request.user)
+    return render(request, 'garage/garage.html', {
+        'cars': cars,
+        'favorite_car_ids': get_favorite_car_ids(request),
+    })
 
 
 def support(request):
@@ -222,7 +226,11 @@ def sell_car(request):
     if request.method == 'POST':
         form = CarForm(request.POST)
         if form.is_valid():
-            car = form.save()
+            car = form.save(commit=False)
+            car.owner = request.user
+            car.save()
+            form.save_m2m()
+            form.save_extra_images(car)
             messages.success(
                 request,
                 f'Оголошення {car.brand} {car.model} {car.year} успішно опубліковано!',
@@ -290,8 +298,9 @@ def admin_user_delete(request, user_id):
 
     if request.method == 'POST':
         username = user.username
+        deleted_cars_count = user.cars.count()
         user.delete()
-        messages.success(request, f'Користувача {username} видалено.')
+        messages.success(request, f'Користувача {username} видалено. Видалено оголошень: {deleted_cars_count}.')
         return redirect('admin_cars')
 
     return render(request, 'admin_cars/admin_user_delete.html', {'user_to_delete': user})

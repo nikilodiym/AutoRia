@@ -3,7 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
 
 from .car_catalog import CAR_MODELS
-from .models import Car
+from .models import Car, CarImage
 
 
 class LoginForm(AuthenticationForm):
@@ -69,6 +69,16 @@ class RegisterForm(UserCreationForm):
 
 
 class CarForm(forms.ModelForm):
+    extra_images = forms.CharField(
+        label='Додаткові фото',
+        required=False,
+        widget=forms.Textarea(attrs={
+            'class': 'sell-field__textarea',
+            'placeholder': 'Кожне посилання на фото з нового рядка',
+            'rows': 4,
+        }),
+    )
+
     class Meta:
         model = Car
         fields = [
@@ -92,6 +102,7 @@ class CarForm(forms.ModelForm):
             'seller_name',
             'seller_phone',
             'image',
+            'extra_images',
         ]
         widgets = {
             'brand': forms.TextInput(attrs={
@@ -197,6 +208,7 @@ class CarForm(forms.ModelForm):
             'seller_name': "Ім'я продавця",
             'seller_phone': 'Телефон',
             'image': 'Посилання на фото',
+            'extra_images': 'Додаткові фото',
         }
 
     def __init__(self, *args, **kwargs):
@@ -211,6 +223,8 @@ class CarForm(forms.ModelForm):
 
         self.fields['brand'].widget.attrs['data-car-catalog'] = 'brand'
         self.fields['model'].widget.attrs['data-car-catalog'] = 'model'
+        if self.instance and self.instance.pk:
+            self.fields['extra_images'].initial = '\n'.join(self.instance.images.values_list('image', flat=True))
 
     def clean_brand(self):
         brand = self.cleaned_data['brand'].strip()
@@ -236,6 +250,14 @@ class CarForm(forms.ModelForm):
             raise forms.ValidationError('Вкажіть коректний рік випуску.')
         return year
 
+    def clean_extra_images(self):
+        value = self.cleaned_data.get('extra_images', '')
+        urls = [url.strip() for url in value.replace(',', '\n').splitlines() if url.strip()]
+        validator = forms.URLField()
+        for url in urls:
+            validator.clean(url)
+        return urls
+
     def save(self, commit=True):
         car = super().save(commit=False)
         if car.price_usd:
@@ -243,4 +265,12 @@ class CarForm(forms.ModelForm):
         if commit:
             car.save()
             self.save_m2m()
+            self.save_extra_images(car)
         return car
+
+    def save_extra_images(self, car):
+        car.images.all().delete()
+        CarImage.objects.bulk_create([
+            CarImage(car=car, image=image, order=index)
+            for index, image in enumerate(self.cleaned_data.get('extra_images', []))
+        ])

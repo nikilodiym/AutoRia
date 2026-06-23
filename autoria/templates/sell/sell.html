@@ -149,6 +149,12 @@
                     {{ form.image }}
                     <span class="sell-field__hint">Якщо не вкажете — буде використано стандартне зображення</span>
                 </div>
+                <div class="sell-field sell-field--full">
+                    <label class="sell-field__label" for="{{ form.extra_images.id_for_label }}">{{ form.extra_images.label }}</label>
+                    {{ form.extra_images }}
+                    {% if form.extra_images.errors %}<span class="sell-field__error">{{ form.extra_images.errors.0 }}</span>{% endif %}
+                    <span class="sell-field__hint">Додайте кілька посилань на фото з нового рядка або через кому</span>
+                </div>
             </div>
         </section>
 

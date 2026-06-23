@@ -53,6 +53,7 @@ class Car(models.Model):
     seller_name = models.CharField(max_length=100, blank=True, default='', verbose_name="Ім'я продавця")
     seller_phone = models.CharField(max_length=20, blank=True, default='', verbose_name='Телефон')
 
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='cars', null=True, blank=True)
     posted = models.CharField(max_length=50, blank=True, default='')
     image = models.URLField(blank=True, default='')
 
@@ -76,6 +77,12 @@ class Car(models.Model):
     @property
     def price(self):
         return self.price_usd
+
+    @property
+    def gallery_images(self):
+        images = [self.image] if self.image else []
+        images.extend(self.images.values_list('image', flat=True))
+        return images or ['/static/images/cars/toyota_camry_car.jpg']
 
     @property
     def body_type_display(self):
@@ -223,3 +230,15 @@ class Favorite(models.Model):
 
     def __str__(self):
         return f'{self.user} - {self.car}'
+
+
+class CarImage(models.Model):
+    car = models.ForeignKey(Car, on_delete=models.CASCADE, related_name='images')
+    image = models.URLField()
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['order', 'id']
+
+    def __str__(self):
+        return f'{self.car} image {self.order + 1}'

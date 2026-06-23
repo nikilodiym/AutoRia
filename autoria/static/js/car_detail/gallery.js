@@ -1,13 +1,22 @@
 var currentSlide = 0;
-var totalSlides = 6;
+var galleryImagesElement = document.getElementById('gallery-images-data');
+var galleryImages = galleryImagesElement ? JSON.parse(galleryImagesElement.textContent) : [];
+var totalSlides = galleryImages.length || document.querySelectorAll('.gallery__thumb').length || 1;
 
 function galleryGo(index) {
     currentSlide = Math.max(0, Math.min(index, totalSlides - 1));
     document.getElementById('galleryCounter').textContent = (currentSlide + 1) + ' з ' + totalSlides;
 
+    var image = document.getElementById('galleryImage');
+    if (image && galleryImages[currentSlide]) {
+        image.src = galleryImages[currentSlide];
+    }
+
     var thumbs = document.querySelectorAll('.gallery__thumb');
     thumbs.forEach(function(t) { t.classList.remove('gallery__thumb--active'); });
-    thumbs[currentSlide].classList.add('gallery__thumb--active');
+    if (thumbs[currentSlide]) {
+        thumbs[currentSlide].classList.add('gallery__thumb--active');
+    }
 
     scrollThumbsToActive();
 }
